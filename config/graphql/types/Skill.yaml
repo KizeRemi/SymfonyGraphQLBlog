@@ -1,0 +1,23 @@
+Skill:
+    type: object
+    config:
+        fields:
+            id:
+                type: 'Int!'
+            title:
+                type: 'String!'
+            resume:
+                type: 'String!'
+            image:
+                type: 'String!'
+            tag:
+                type: 'String!'
+            level:
+                type: 'Int!'
+
+SkillInput:
+    type: input-object
+    config:
+        fields:
+            title:
+                type: 'String!'

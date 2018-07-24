@@ -1,0 +1,12 @@
+Article:
+    type: object
+    config:
+        fields:
+            id:
+                type: 'Int!'
+            title:
+                type: 'String!'
+            resume:
+                type: 'String!'
+            content:
+                type: 'String!'

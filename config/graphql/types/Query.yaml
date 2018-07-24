@@ -1,0 +1,24 @@
+Query:
+    type: object
+    config:
+        fields:
+            article:
+                type: 'Article'
+                args:
+                    id:
+                        description: 'Resolves Article using its ID.'
+                        type: 'Int!'
+                resolve: "@=resolver('UserById', [args['id']])"
+            articles:
+                type: '[Article]'
+                resolve: "@=resolver('Users')"
+            skills:
+                type: '[Skill]'
+                resolve: "@=resolver('Skills')"
+            skillsByLevel:
+                type: '[Skill]'
+                args:
+                    skill_level:
+                        description: 'Skill level'
+                        type: 'Int!'
+                resolve: "@=resolver('getSkillsByLevel', [args['skill_level']])"

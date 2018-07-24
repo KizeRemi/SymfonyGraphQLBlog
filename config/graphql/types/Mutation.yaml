@@ -1,0 +1,17 @@
+MutationSuccess:
+    type: object
+    config:
+        fields:
+            content:
+                type: String!
+
+Mutation:
+    type: object
+    config:
+        fields:
+            newSkill:
+                type: Skill
+                resolve: "@=mutation('NewSkill', [args['input']['title']])"
+                args:
+                    input:
+                        type: SkillInput!
