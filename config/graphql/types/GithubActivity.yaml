@@ -1,0 +1,22 @@
+GithubActivity:
+    type: object
+    config:
+        fields:
+            type:
+                type: 'String!'
+            name:
+                type: 'String!'
+            commit:
+                type: 'String'
+            url:
+                type: 'String!'
+            message:
+                type: 'String'
+            ref:
+                type: 'String'
+            createdAt:
+                type: 'String!'
+            avatarUrl:
+                type: 'String!'
+            pullRequestAction:
+                type: 'String'

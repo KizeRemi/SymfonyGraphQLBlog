@@ -22,3 +22,6 @@ Query:
                         description: 'Skill level'
                         type: 'Int!'
                 resolve: "@=resolver('getSkillsByLevel', [args['skill_level']])"
+            githubActivities:
+                type: '[GithubActivity]'
+                resolve: "@=resolver('getGithubActivities')"
