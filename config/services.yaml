@@ -4,6 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    github_token: '%env(GITHUB_TOKEN)%'
+    github_username: KizeRemi
+    github_url: https://api.github.com
 
 services:
     # default configuration for services in *this* file
@@ -20,14 +23,18 @@ services:
         resource: '../src/*'
         exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
-
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    ## aliases
+    GuzzleHttp\Client: '@app.guzzle'
+    App\Github\ApiClient: '@app.github.api_client'
+    App\Resolver\GithubActivityResolver: '@app.resolver.github_activity'
+    App\Github\ActivityFactory: '@app.github.activity_factory'
+
+    app.guzzle:
+        class: 'GuzzleHttp\Client'
+
     App\Resolver\:
         resource: '../src/Resolver'
         tags: ['overblog_graphql.resolver']
@@ -36,3 +43,14 @@ services:
         resource: '../src/Mutation'
         tags: ['overblog_graphql.mutation']
 
+    app.github.activity_factory:
+        class: App\Github\ActivityFactory
+        public: true
+
+    app.github.api_client:
+        public: true
+        class: App\Github\ApiClient
+        arguments:
+            - '@app.guzzle'
+            - '%github_token%'
+            - '%github_url%'
