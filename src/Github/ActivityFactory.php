@@ -8,6 +8,12 @@ class ActivityFactory
 
     public function createActivity(array $data)
     {
+        $commit = null;
+        $message = null;
+        $ref = null;
+        $url = null;
+        $pullRequestAction = null;
+
         if (empty($data)) {
             throw new \RuntimeException('data is empty');
         }
@@ -18,20 +24,15 @@ class ActivityFactory
             }
         }
 
-        $commit = null;
-        $message = null;
-        $ref = null;
-        $url = null;
-        $pullRequestAction = null;
         if($data['type'] === 'PushEvent') {
             $message = $data['payload']['commits'][0]['message'];
             $url = $data['payload']['commits'][0]['url'];
+            $ref = $data['payload']['ref'];
             $commit = substr($data['payload']['commits'][0]['sha'], 0, 7);
         }
 
         if($data['type'] === 'PullRequestEvent') {
             $url = $data['repo']['url'];
-            $ref = $data['payload']['pull_request']['head']['ref'];
             $ref = $data['payload']['pull_request']['head']['ref'];
             $pullRequestAction = $data['payload']['action'];
         }
